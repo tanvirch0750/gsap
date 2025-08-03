@@ -1,0 +1,97 @@
+/* styles.css */
+
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  padding: 40px;
+  min-height: 100vh;
+}
+
+/* Headings */
+h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+/* Paragraphs */
+p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 40px;
+}
+
+body {
+  color: white;
+  font-family: 'Kanit', sans-serif;
+  background: #020202;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+#wrapper {
+  /* visibility: hidden; */
+  width: 800px;
+  height: 450px;
+  text-align: center;
+}
+
+#demo {
+  top: 30px;
+  overflow: hidden;
+  position: relative;
+  width: 800px;
+  height: 410px;
+  border: 1px solid #333;
+  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/32887/space-background.png);
+}
+
+#title {
+  position: absolute;
+  top: 120px;
+  left: 40px;
+}
+
+#freds {
+  position: absolute;
+  top: 250px;
+  left: 20px;
+}
+
+#freds img {
+  width: 122px;
+}
+
+#time {
+  position: absolute;
+  top: 25px;
+  right: 0;
+}
+
+#nav {
+  margin-top: 20px;
+}
+
+button {
+  border-radius: 10px;
+  background: #fc3;
+  color: #06c;
+  font-size: 14px;
+  padding: 10px;
+  border: none;
+  font-weight: bold;
+}
+
+button:focus {
+  outline: none;
+  background-color: white;
+}

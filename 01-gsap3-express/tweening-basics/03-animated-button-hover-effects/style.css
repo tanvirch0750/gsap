@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=PT+Sans+Narrow:wght@700&family=Raleway:wght@900&display=swap');
+* {
+  position: relative;
+}
+body {
+  color: white;
+  font-family: sans-serif;
+  background: rgb(34, 32, 32);
+  background: radial-gradient(
+    circle,
+    rgba(34, 32, 32, 1) 0%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  margin: 50px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.dot {
+  height: 20px;
+  min-width: 20px;
+  background-color: #333;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.text {
+  color: #777;
+  font-family: Raleway;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 4px;
+  font-size: 40px;
+  white-space: nowrap;
+}
+
+.hover-button .cta {
+  margin-top: 50px;
+  margin-left: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 60px;
+  background-color: #f93;
+  border-radius: 30px;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  will-change: transform;
+  /* will change tells the browser to make optimization prior to the animation starting, with this when scale text jitter is gone */
+  transform: scale(0.8);
+}

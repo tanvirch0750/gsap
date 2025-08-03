@@ -1,0 +1,39 @@
+/* styles.css */
+
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  padding: 40px;
+  min-height: 100vh;
+}
+
+/* Headings */
+h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+/* Paragraphs */
+p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 40px;
+}
+
+/* Animated Box */
+.box {
+  width: 100px;
+  height: 100px;
+  background-color: #3498db;
+  margin: 0 auto;
+  border-radius: 8px;
+}
