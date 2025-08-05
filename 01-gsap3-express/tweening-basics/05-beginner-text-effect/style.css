@@ -28,6 +28,11 @@ p {
   visibility: hidden;
 }
 
+.wrapper-four {
+  visibility: hidden;
+  perspective: 400px;
+}
+
 h1 {
   font-size: 50px;
   text-align: center;
@@ -40,4 +45,11 @@ h2 {
   text-align: center;
   margin-top: 20px;
   color: #e00606;
+}
+
+h3 {
+  font-size: 50px;
+  text-align: center;
+  margin-top: 20px;
+  color: #e0a006;
 }

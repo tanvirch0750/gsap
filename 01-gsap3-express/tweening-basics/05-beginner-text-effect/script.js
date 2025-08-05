@@ -11,6 +11,8 @@ let animation = gsap.timeline({ repeat: 10, yoyo: true, repeatDelay: 0.3 });
 
 let word;
 
+let line;
+
 function init() {
   gsap.set('.wrapper-two', { autoAlpha: 1 });
   split = new SplitText('h1', { type: 'chars' });
@@ -31,6 +33,17 @@ function init() {
     stagger: 0.1,
     duration: 1,
     ease: 'back',
+  });
+
+  // line by line animation
+  line = new SplitText('h3', { type: 'lines' });
+  gsap.set('.wrapper-four', { autoAlpha: 1 });
+  animation.from(line.lines, {
+    opacity: 0,
+    rotationX: -90,
+    rotationY: -80,
+    stagger: 0.1,
+    transformOrigin: '50% 50% -200',
   });
 
   GSDevTools.create({ animation: animation });
