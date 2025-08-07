@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GSAP Ease Playground with Descriptions</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/EasePack.min.js"></script>
+    <style>
+      body {
+        font-family: sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 30px;
+        background: #f0f0f0;
+      }
+
+      .box {
+        width: 80px;
+        height: 80px;
+        background: #4caf50;
+        border-radius: 12px;
+        margin: 30px 0;
+      }
+
+      .buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+        max-width: 800px;
+      }
+
+      button {
+        padding: 8px 12px;
+        border: none;
+        background: #2196f3;
+        color: white;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+
+      button:hover {
+        background: #1976d2;
+      }
+
+      .description {
+        margin-top: 20px;
+        max-width: 600px;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .ease-title {
+        font-weight: bold;
+        font-size: 1.2em;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🎮 GSAP Ease Playground</h1>
+    <p>Click a button to animate the box and learn how the easing works!</p>
+
+    <div class="box" id="box"></div>
+
+    <div class="buttons" id="easeButtons"></div>
+
+    <div class="description" id="easeDescription">
+      <div class="ease-title">Ease Description</div>
+      <div id="easeText">Click an ease button to learn how it works.</div>
+    </div>
+
+    <script>
+      const easeDescriptions = {
+        'power1.in':
+          '🚗 Starts slow and speeds up. Like a car slowly pressing the gas pedal.',
+        'power1.out':
+          '🚗 Starts fast and slows down. Like a car gently braking.',
+        'power1.inOut':
+          '🚗 Smooth both ways. Starts slow, speeds up, then slows down again.',
+        'power2.in':
+          '🛵 A bit more dramatic than power1. Starts slower, ends faster.',
+        'power2.out':
+          '🛵 Starts faster, slows down more clearly. More dramatic exit.',
+        'power2.inOut':
+          '🛵 Smooth roll-in and roll-out. A nice natural motion.',
+        'power3.in':
+          '🚙 Heavier start. Accelerates more powerfully than power2.',
+        'power3.out':
+          '🚙 Stronger deceleration. Like hitting the brakes harder.',
+        'power3.inOut': '🚙 Starts and ends with noticeable pull.',
+        'power4.in': '🏎️ Explodes out of the start. Like a race car launching.',
+        'power4.out': '🏎️ Slams the brakes near the end. Dramatic slowdown.',
+        'power4.inOut':
+          '🏎️ Powerful acceleration and deceleration. Great for emphasis.',
+        'back.in':
+          '🔙 Pulls back a bit before starting. Like pulling a slingshot.',
+        'back.out':
+          '🔙 Goes past the end a little and comes back. Like a spring overextending.',
+        'back.inOut':
+          '🔙 Pulls back at start and overshoots at end. Bouncy both sides.',
+        'elastic.in':
+          '🧵 Super stretchy start. Like stretching a rubber band slowly.',
+        'elastic.out':
+          '🧵 Fast bounce at end. Like releasing that rubber band!',
+        'elastic.inOut':
+          '🧵 Bounces at both start and end. Very playful and springy.',
+        'bounce.in':
+          '🏀 Bounces in from the top. Like a ball being thrown upward.',
+        'bounce.out':
+          '🏀 Classic bounce drop. Falls and bounces at the bottom.',
+        'bounce.inOut': '🏀 Bounces up and down. Great for playful movement.',
+        'expo.in': '💥 Starts extremely slow and speeds up explosively.',
+        'expo.out':
+          '💥 Starts fast and slows down dramatically. Like a rocket landing.',
+        'expo.inOut': '💥 Super dramatic start and stop. Best for big reveals.',
+        'circ.in':
+          '⚪ Starts curving slowly. Like turning into a circle from rest.',
+        'circ.out': '⚪ Eases into a stop in a curvy way. Like a gentle arc.',
+        'circ.inOut': '⚪ Smooth, natural curve. Very elegant.',
+        'sine.in': '🎵 Like a sine wave ramping up — soft and musical feeling.',
+        'sine.out': '🎵 A gentle finish. Soft landing like a feather.',
+        'sine.inOut': '🎵 Very smooth wave-like motion. Balanced and soft.',
+        'steps(5)':
+          '📶 Jumps in 5 hard steps, like walking down stairs or frame-by-frame animation.',
+        "rough({strength: 1, points: 20, template: 'none', taper: 'none'})":
+          '💥 Chaotic and jittery. Great for shake or glitch effects.',
+        'slow(0.7, 0.7, false)':
+          '🐢 Very slow ease in and out. Soft and smooth like a jellyfish swimming.',
+      };
+
+      const eases = Object.keys(easeDescriptions);
+
+      const box = document.getElementById('box');
+      const buttonsContainer = document.getElementById('easeButtons');
+      const easeText = document.getElementById('easeText');
+
+      eases.forEach((ease) => {
+        const btn = document.createElement('button');
+        btn.innerText = ease;
+        btn.onclick = () => {
+          // Animate the box
+          gsap.fromTo(
+            box,
+            { x: 0 },
+            { x: 500, duration: 2, ease: ease, clearProps: 'x' }
+          );
+          // Update description
+          easeText.innerText = easeDescriptions[ease];
+        };
+        buttonsContainer.appendChild(btn);
+      });
+    </script>
+  </body>
+</html>
