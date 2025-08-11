@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>GSAP utils.wrap Demo</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding: 40px;
+        background: #f2f4f7;
+        color: #333;
+        transition: background 0.5s ease;
+      }
+      h2 {
+        margin-bottom: 20px;
+      }
+      button {
+        padding: 10px 20px;
+        margin: 10px;
+        font-size: 16px;
+        border: none;
+        border-radius: 8px;
+        background: #4a90e2;
+        color: white;
+        cursor: pointer;
+        transition: background 0.3s ease, transform 0.2s ease;
+      }
+      button:hover {
+        background: #357abd;
+        transform: scale(1.05);
+      }
+      button:active {
+        transform: scale(0.97);
+      }
+      #output {
+        margin-top: 30px;
+        font-size: 18px;
+        background: rgba(255, 255, 255, 0.85);
+        padding: 20px;
+        border-radius: 10px;
+        display: inline-block;
+        min-width: 250px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+    </style>
+  </head>
+  <body>
+    <h2>GSAP utils.wrap Playground</h2>
+    <button id="inc">Increase</button>
+    <button id="dec">Decrease</button>
+
+    <div id="output"></div>
+
+    <script>
+      let num = 0;
+
+      // Wrap numbers between 0 and 4
+      const wrapNumber = gsap.utils.wrap(0, 5);
+
+      // Wrap colors array (soft, eye-friendly palette)
+      const wrapColor = gsap.utils.wrap([
+        '#a8dadc', // light teal
+        '#f4a261', // soft orange
+        '#e9c46a', // warm yellow
+        '#90be6d', // green
+        '#6d597a', // muted purple
+      ]);
+
+      function updateOutput() {
+        document.getElementById('output').innerHTML = `
+      <strong>Current Value:</strong> ${num}<br>
+      <strong>Wrapped Number:</strong> ${wrapNumber(num)}<br>
+      <strong>Wrapped Color:</strong> ${wrapColor(num)}
+    `;
+        document.body.style.background = wrapColor(num);
+      }
+
+      document.getElementById('inc').addEventListener('click', () => {
+        num++;
+        updateOutput();
+      });
+
+      document.getElementById('dec').addEventListener('click', () => {
+        num--;
+        updateOutput();
+      });
+
+      updateOutput();
+    </script>
+  </body>
+</html>

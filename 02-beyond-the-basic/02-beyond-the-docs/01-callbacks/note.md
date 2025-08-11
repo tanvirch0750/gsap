@@ -1,0 +1,5 @@
+- Passing parameters into callback
+- Callback scope
+- Referencing an animation from a callback
+- Using arrow functions as callbacks (can be bad)
+- Changing callback scope

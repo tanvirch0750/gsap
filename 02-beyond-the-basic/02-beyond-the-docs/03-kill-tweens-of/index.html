@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>GSAP killTweensOf Demo</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+      #box {
+        width: 100px;
+        height: 100px;
+        background: red;
+        margin-top: 20px;
+      }
+      button {
+        margin: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>GSAP killTweensOf()</h2>
+    <button id="start">Start Animation</button>
+    <button id="kill">Kill Animation</button>
+    <button id="killX">Kill Only X</button>
+    <div id="box"></div>
+
+    <script>
+      document.getElementById('start').addEventListener('click', () => {
+        gsap.to('#box', { x: 300, y: 150, duration: 3 });
+      });
+
+      document.getElementById('kill').addEventListener('click', () => {
+        gsap.killTweensOf('#box');
+      });
+
+      document.getElementById('killX').addEventListener('click', () => {
+        gsap.killTweensOf('#box', { x: true });
+      });
+    </script>
+  </body>
+</html>
