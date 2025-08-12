@@ -16,16 +16,19 @@ body {
   align-items: center;
 }
 .wrapper {
-  perspective: 800px;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  visibility: hidden;
 }
 
 h1 {
   font-size: 6vw;
   font-weight: 600;
+  margin: 0;
+  line-height: 4vw;
+}
+h2 {
+  font-size: 3vw;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: 10px;
 }
 
 body {
