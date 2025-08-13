@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GSAP clearProps Demo</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <style>
+      body {
+        font-family: sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background: #f0f4f8;
+      }
+
+      h1 {
+        color: red;
+        transform: none;
+      }
+
+      button {
+        margin: 10px;
+        padding: 10px 20px;
+        border: none;
+        background: #4cafef;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 6px;
+        transition: background 0.3s;
+      }
+
+      button:hover {
+        background: #3498db;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Hello GSAP</h1>
+    <div>
+      <button id="noReset">Animate Without Reset</button>
+      <button id="withReset">Animate With Reset</button>
+    </div>
+
+    <script>
+      const heading = document.querySelector('h1');
+
+      document.getElementById('noReset').addEventListener('click', () => {
+        gsap.to(heading, {
+          x: 150,
+          color: 'blue',
+          duration: 1,
+          // No clearProps here
+        });
+      });
+
+      document.getElementById('withReset').addEventListener('click', () => {
+        gsap.to(heading, {
+          x: 150,
+          color: 'blue',
+          duration: 1,
+          clearProps: 'all', // Removes inline styles after animation
+        });
+      });
+    </script>
+  </body>
+</html>

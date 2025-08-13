@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GSAP 3D Perspective & Letter Animation</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <style>
+      body {
+        background: #0e1726;
+        color: white;
+        font-family: sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 50px;
+        padding-top: 50px;
+      }
+      h2 {
+        text-align: center;
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+      .wrapper {
+        display: flex;
+        gap: 30px;
+        perspective: 800px; /* Camera distance for wrapper perspective */
+        transform-style: preserve-3d;
+      }
+      .box {
+        width: 100px;
+        height: 100px;
+        background: linear-gradient(135deg, #4cafef, #00e1ff);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 12px;
+        font-size: 20px;
+        color: white;
+        transform-style: preserve-3d;
+      }
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+      .text3d {
+        display: flex;
+        gap: 5px;
+        font-size: 2rem;
+        transform-style: preserve-3d;
+        perspective: 800px;
+      }
+      .letter {
+        display: inline-block;
+        transform-style: preserve-3d;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Perspective on Wrapper (Camera Rotation)</h2>
+      <div class="wrapper" id="wrapperCamera">
+        <div class="box">1</div>
+        <div class="box">2</div>
+        <div class="box">3</div>
+      </div>
+    </div>
+
+    <div class="container">
+      <h2>TransformPerspective on Each Box (Individual Spin)</h2>
+      <div class="wrapper" id="wrapperBoxes">
+        <div class="box">A</div>
+        <div class="box">B</div>
+        <div class="box">C</div>
+      </div>
+    </div>
+
+    <div class="container">
+      <h2>Letter-by-Letter 3D Animation</h2>
+      <div class="text3d" id="text3d"></div>
+    </div>
+
+    <script>
+      // CAMERA PERSPECTIVE EXAMPLE
+      gsap.set('#wrapperCamera .box', { transformPerspective: 500 });
+      gsap.to('#wrapperCamera', {
+        rotationY: 45,
+        rotationX: 20,
+        duration: 3,
+        yoyo: true,
+        repeat: -1,
+        ease: 'power1.inOut',
+      });
+
+      // INDIVIDUAL BOX PERSPECTIVE EXAMPLE
+      gsap.set('#wrapperBoxes .box', { transformPerspective: 500 });
+      gsap.to('#wrapperBoxes .box', {
+        rotationY: '+=360',
+        duration: 3,
+        repeat: -1,
+        ease: 'none',
+      });
+
+      // LETTER-BY-LETTER 3D ANIMATION
+      const text = 'HELLO 3D WORLD';
+      const textContainer = document.getElementById('text3d');
+
+      // Create span for each letter
+      text.split('').forEach((char) => {
+        const span = document.createElement('span');
+        span.classList.add('letter');
+        span.textContent = char;
+        textContainer.appendChild(span);
+      });
+
+      gsap.set('.letter', {
+        transformPerspective: 600,
+        rotationY: 90,
+        opacity: 0,
+      });
+
+      gsap.to('.letter', {
+        rotationY: 0,
+        opacity: 1,
+        duration: 0.8,
+        stagger: 0.05,
+        ease: 'back.out(1.7)',
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GSAP immediateRender Example</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <style>
+      body {
+        background: #222;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+        padding: 50px;
+      }
+      .box {
+        width: 100px;
+        height: 100px;
+        background: orange;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 18px;
+        color: white;
+        border-radius: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box" id="box1">true</div>
+    <div class="box" id="box2">false</div>
+
+    <script>
+      // Move box1 after 1 second - immediateRender defaults to true
+      gsap.from('#box1', {
+        x: 200,
+        duration: 1,
+        delay: 1, // start after 1 second
+        // immediateRender: true (default)
+      });
+
+      // Move box2 after 1 second - immediateRender disabled
+      gsap.from('#box2', {
+        x: 200,
+        duration: 1,
+        delay: 1,
+        immediateRender: false, // prevents applying start values before delay
+      });
+    </script>
+  </body>
+</html>
