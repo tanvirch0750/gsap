@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GSAP Utilities Real-Life Examples</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <style>
+      body {
+        font-family: sans-serif;
+        background: #111;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 50px;
+        padding: 50px;
+      }
+      h2 {
+        text-align: center;
+      }
+      .list,
+      .particles,
+      .slider {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .item,
+      .particle {
+        width: 60px;
+        height: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 8px;
+        font-weight: bold;
+      }
+      .item {
+        background: #4cafef;
+        color: white;
+      }
+      .particle {
+        background: #ff3d3d;
+        color: white;
+        border-radius: 50%;
+      }
+      .slider {
+        margin-top: 20px;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+      }
+      input {
+        width: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>1️⃣ Random Particle Bounce (random())</h2>
+    <div class="particles" id="particlesContainer"></div>
+
+    <h2>2️⃣ Shuffle a Task List (shuffle())</h2>
+    <div class="list" id="taskList"></div>
+
+    <h2>3️⃣ Map Mouse X to Color (mapRange())</h2>
+    <div
+      class="mapBox"
+      id="mapBox"
+      style="
+        width: 300px;
+        height: 80px;
+        background: #4cafef;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 8px;
+      "
+    >
+      Move Mouse
+    </div>
+
+    <h2>4️⃣ Snap Slider Value (snap())</h2>
+    <div class="slider">
+      <input type="range" id="snapSlider" min="0" max="100" step="1" />
+      <div id="snapOutput">Value: 0</div>
+    </div>
+
+    <h2>5️⃣ Normalize Mouse Y and Adjust Scale (normalize())</h2>
+    <div
+      class="mapBox"
+      id="normalizeBox"
+      style="
+        width: 100px;
+        height: 100px;
+        background: #ffeb3b;
+        border-radius: 8px;
+      "
+    >
+      Scale Me
+    </div>
+
+    <h2>6️⃣ Pipe Example - Multiple Transforms</h2>
+    <div
+      class="mapBox"
+      id="pipeBox"
+      style="width: 80px; height: 80px; background: #00e676; border-radius: 8px"
+    >
+      Pipe
+    </div>
+
+    <script>
+      // --------------- 1️⃣ Random Particle Bounce ----------------
+      const particlesContainer = document.getElementById('particlesContainer');
+      const particleCount = 10;
+      for (let i = 0; i < particleCount; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        p.textContent = i + 1;
+        particlesContainer.appendChild(p);
+
+        // Animate each particle with random vertical bounce
+        gsap.to(p, {
+          y: gsap.utils.random(-100, 100), // random height
+          duration: gsap.utils.random(0.5, 1.5), // random duration
+          yoyo: true,
+          repeat: -1,
+          ease: 'power1.inOut',
+        });
+      }
+
+      // --------------- 2️⃣ Shuffle a Task List ----------------
+      const tasks = ['Email', 'Call', 'Meeting', 'Code', 'Design'];
+      const taskList = document.getElementById('taskList');
+      function renderTasks(arr) {
+        taskList.innerHTML = '';
+        arr.forEach((task) => {
+          const div = document.createElement('div');
+          div.className = 'item';
+          div.textContent = task;
+          taskList.appendChild(div);
+        });
+      }
+      renderTasks(tasks);
+      // Shuffle every 3 seconds
+      setInterval(() => {
+        const shuffled = gsap.utils.shuffle([...tasks]); // shuffle array
+        renderTasks(shuffled);
+      }, 1000);
+
+      // --------------- 3️⃣ Map Mouse X to Color ----------------
+      const mapBox = document.getElementById('mapBox');
+      window.addEventListener('mousemove', (e) => {
+        const colorValue = Math.round(
+          gsap.utils.mapRange(0, window.innerWidth, 0, 255, e.clientX)
+        );
+        mapBox.style.background = `rgb(${colorValue},100,200)`; // map X position to red channel
+      });
+
+      // --------------- 4️⃣ Snap Slider Value ----------------
+      const snapSlider = document.getElementById('snapSlider');
+      const snapOutput = document.getElementById('snapOutput');
+      snapSlider.addEventListener('input', (e) => {
+        const snapped = gsap.utils.snap(10, e.target.value); // snap value to nearest 10
+        snapOutput.textContent = 'Value: ' + snapped;
+      });
+
+      // --------------- 5️⃣ Normalize Mouse Y and Adjust Scale ----------------
+      const normalizeBox = document.getElementById('normalizeBox');
+      window.addEventListener('mousemove', (e) => {
+        const normalized = gsap.utils.normalize(
+          0,
+          window.innerHeight,
+          e.clientY
+        ); // 0 to 1
+        normalizeBox.style.transform = `scale(${1 + normalized * 2})`; // scale 1 → 3
+      });
+
+      // --------------- 6️⃣ Pipe Example ----------------
+      const pipeBox = document.getElementById('pipeBox');
+      const double = (x) => x * 2;
+      const addFive = (x) => x + 5;
+      const square = (x) => x * x;
+      const pipeFunc = gsap.utils.pipe(double, addFive, square); // chain functions
+
+      let value = 1;
+      setInterval(() => {
+        pipeBox.textContent = pipeFunc(value); // apply chained functions
+        value++;
+      }, 1000);
+    </script>
+  </body>
+</html>

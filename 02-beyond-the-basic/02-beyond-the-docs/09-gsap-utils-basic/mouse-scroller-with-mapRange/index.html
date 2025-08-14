@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GSAP Utilities Real-Life Examples</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+
+    <style>
+      * {
+        position: relative;
+      }
+
+      body {
+        font-size: 1.5em;
+        font-family: sans-serif;
+      }
+      #demo {
+        outline: 1px solid black;
+        width: 600px;
+        height: 600px;
+        overflow: hidden;
+      }
+
+      .line {
+        position: absolute;
+        width: 1px;
+        height: 600px;
+        left: 300px;
+        background: black;
+      }
+
+      .boxWrapper {
+        top: 250px;
+        display: flex;
+        column-gap: 3px;
+        width: fit-content;
+      }
+
+      .box {
+        font-size: 20px;
+        font-weight: bold;
+        color: #b6e1ff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        width: 100px;
+        height: 100px;
+        background: dodgerblue;
+        border-radius: 10px;
+      }
+
+      .boxWrapper,
+      .line {
+        pointer-events: none;
+      }
+
+      .box path {
+        fill: white;
+      }
+
+      .box svg {
+        transform: scale(0.8);
+        /* border:1px solid red; */
+      }
+    </style>
+  </head>
+  <body>
+    <h1 style="font-size: 18px; font-family: sans-serif">
+      Move mouse to scroll (desktop only)
+    </h1>
+    <div id="demo">
+      <div class="line"></div>
+      <div class="boxWrapper">
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+      </div>
+    </div>
+    <p>mouseX <span class="output" id="mouseX"></span></p>
+    <p></p>
+    <p>distanceX <span class="output" id="distanceX"></span></p>
+    <p>
+      <script>
+        const boxWrapper = document.querySelector('.boxWrapper');
+        const boxes = document.querySelectorAll('.box');
+        const demoWidth = 600;
+        const boxWrapperWidth = boxWrapper.offsetWidth;
+        const scrollAmount = boxWrapperWidth - demoWidth;
+        console.log(scrollAmount);
+
+        boxes.forEach((box, index) => {
+          box.textContent = index + 1;
+        });
+
+        const tween = gsap.to(boxWrapper, {
+          x: -scrollAmount,
+          duration: 10,
+          ease: 'none',
+        });
+
+        demo.addEventListener('mousemove', function (e) {
+          mouseX.textContent = e.offsetX;
+          let distance = e.offsetX - 300;
+          distanceX.textContent = distance;
+          let timeScale = gsap.utils.mapRange(-300, 300, -3, 3, distance);
+          tween.timeScale(timeScale);
+        });
+      </script>
+    </p>
+  </body>
+</html>

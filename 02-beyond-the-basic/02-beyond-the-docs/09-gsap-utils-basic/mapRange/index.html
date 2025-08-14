@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GSAP Utilities Real-Life Examples</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+
+    <style>
+      * {
+        position: relative;
+      }
+
+      body {
+        font-family: sans-serif;
+      }
+      #demo {
+        border: 1px solid black;
+        width: 600px;
+        height: 600px;
+      }
+
+      p {
+        font-size: 1.4em;
+      }
+      .line {
+        position: absolute;
+        width: 1px;
+        height: 600px;
+        left: 300px;
+        background: black;
+      }
+
+      .box {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        background: dodgerblue;
+        border-radius: 10px;
+        left: 275px;
+        top: 275px;
+      }
+
+      .box path {
+        fill: white;
+      }
+
+      .box svg {
+        transform: scale(0.8);
+      }
+
+      .box,
+      .line {
+        pointer-events: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Move Mouse (desktop only)</h1>
+    <div id="demo">
+      <div class="line"></div>
+      <div class="box">
+        <svg viewBox="0 0 16 16">
+          <path d="M14.13 9.11h-12l6-7 6 7z" />
+          <path d="M6.12 8h4v6h-4z" />
+        </svg>
+      </div>
+    </div>
+    <p>mouseX <span class="output" id="mouseX"></span></p>
+    <p></p>
+    <p>mouseY <span class="output" id="mouseY"></span></p>
+    <p>
+      <script>
+        const setScaleX = gsap.quickSetter('.box', 'scaleX');
+        const setScaleY = gsap.quickSetter('.box', 'scaleY');
+
+        demo.addEventListener('mousemove', function (e) {
+          mouseX.textContent = e.offsetX;
+          mouseY.textContent = e.offsetY;
+          let scaleX = gsap.utils.mapRange(0, 600, 1, 4, e.offsetX);
+          let scaleY = gsap.utils.mapRange(0, 600, 1, 4, e.offsetY);
+          setScaleX(scaleX);
+          setScaleY(scaleY);
+        });
+      </script>
+    </p>
+  </body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GSAP Utilities Real-Life Examples</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+
+    <style>
+      * {
+        position: relative;
+      }
+
+      body {
+        font-size: 1.8em;
+        font-family: sans-serif;
+      }
+      #demo {
+        border: 1px solid black;
+        width: 600px;
+        height: 600px;
+      }
+
+      .line {
+        position: absolute;
+        width: 1px;
+        height: 600px;
+        left: 300px;
+        background: black;
+      }
+
+      .box {
+        position: absolute;
+        width: 150px;
+        height: 150px;
+        background: dodgerblue;
+        border-radius: 10px;
+        left: 225px;
+        top: 225px;
+      }
+
+      .box path {
+        fill: white;
+      }
+
+      .box svg {
+        transform: scale(0.8);
+      }
+
+      .box,
+      .line {
+        pointer-events: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper" id="demo">
+      <div class="line"></div>
+      <div class="box">
+        <svg
+          data-name="Layer 1"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 16 16"
+        >
+          <path d="M14.13 9.11h-12l6-7 6 7z" />
+          <path d="M6.12 8h4v6h-4z" />
+        </svg>
+      </div>
+    </div>
+    <p>mouseX <span class="output" id="mouseX"></span></p>
+    <p>
+      <script>
+        // const setRotation = gsap.quickSetter('.box', 'rotation', 'deg');
+
+        // demo.addEventListener('mousemove', function (e) {
+        //   mouseX.textContent = e.offsetX;
+        //   let rotation = gsap.utils.mapRange(0, 600, 0, 360, e.offsetX);
+        //   rotation = gsap.utils.snap(45, rotation);
+        //   setRotation(rotation);
+        // });
+
+        // create references to functions that are pre-configured with specific parameters
+        const mapRange = gsap.utils.mapRange(0, 600, 0, 360);
+        const snap = gsap.utils.snap(45);
+        const setRotation = gsap.quickSetter('.box', 'rotation', 'deg');
+
+        const pipe = gsap.utils.pipe(mapRange, snap, setRotation);
+
+        demo.addEventListener('mousemove', function (e) {
+          mouseX.textContent = e.offsetX;
+          pipe(e.offsetX);
+        });
+      </script>
+    </p>
+  </body>
+</html>
