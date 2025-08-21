@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GSAP Utilities Real-Life Examples</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <style>
+      body,
+      html {
+        font-family: sans-serif;
+        background: #ffcc33;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+        margin: 0;
+      }
+
+      .demo {
+        perspective: 400px;
+        visibility: hidden;
+        height: 100%;
+      }
+
+      .demo div {
+        position: absolute;
+        display: inline-block;
+        left: 50%;
+        top: 50%;
+        font-weight: 800;
+        font-size: 60px;
+        color: #1c70a7;
+        transform: translate(-50%, -50%);
+        white-space: nowrap;
+      }
+
+      .footer {
+        position: fixed;
+        bottom: 0;
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="demo">
+      <div>item 1</div>
+      <div>item 2</div>
+      <div>item 3</div>
+      <div>item 4</div>
+    </div>
+    <div class="footer">
+      <a
+        href="https://courses.snorkl.tv/bundles/creative-coding-club"
+        target="_blank"
+      >
+        <img
+          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/32887/herman.svg"
+          alt=""
+          width="60"
+      /></a>
+    </div>
+    <script>
+      //   let animation = gsap.timeline({ repeat: 20 });
+
+      //   function init() {
+      //     gsap.set('.demo', { autoAlpha: 1 });
+      //     animation
+      //       .from('.demo div', { y: 80, opacity: 0, stagger: 0.5 })
+      //       .to('.demo div', { y: -80, opacity: 0, stagger: 0.5 }, 0.5);
+      //   }
+
+      //   init();
+      let animation = gsap.timeline({ repeat: 20 });
+      let targets = document.querySelectorAll('.demo div');
+      let numberOfTargets = targets.length;
+
+      let duration = 0.4; //change this
+      let pause = 0.75; // change this
+
+      let stagger = duration + pause;
+      let repeatDelay = stagger * (numberOfTargets - 1) + pause;
+
+      function init() {
+        gsap.set('.demo', { autoAlpha: 1 });
+        animation
+          .from(targets, {
+            y: 80,
+            duration: duration,
+            opacity: 0,
+            stagger: {
+              each: stagger,
+              repeat: -1,
+              repeatDelay: repeatDelay,
+            },
+          })
+          .to(
+            targets,
+            {
+              y: -80,
+              duration: duration,
+              opacity: 0,
+              stagger: {
+                each: stagger,
+                repeat: -1,
+                repeatDelay: repeatDelay,
+              },
+            },
+            stagger
+          );
+      }
+      //click anywhere to pause
+      window.addEventListener('click', () =>
+        animation.paused(!animation.paused())
+      );
+      init();
+    </script>
+  </body>
+</html>

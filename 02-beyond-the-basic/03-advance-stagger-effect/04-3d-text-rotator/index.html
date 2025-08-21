@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GSAP Utilities Real-Life Examples</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <style>
+      body,
+      html {
+        font-family: sans-serif;
+        background: #ffcc33;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+        margin: 0;
+      }
+
+      .demo {
+        perspective: 800px;
+        visibility: hidden;
+        height: 100%;
+      }
+
+      .demo div {
+        position: absolute;
+        display: inline-block;
+        left: 50%;
+        top: 50%;
+        font-weight: 800;
+        font-size: 60px;
+        color: #1c70a7;
+        transform: translate(-50%, -50%);
+        white-space: nowrap;
+      }
+
+      .footer {
+        position: fixed;
+        bottom: 0;
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="demo">
+      <div>75 Flavors</div>
+      <div>36 Toppings</div>
+      <div>25 Commemorative Bowls</div>
+      <div>8 Sizes of Spoons</div>
+      <div>Unlimited Possibilities</div>
+      <div>Stop In Today</div>
+      <div>Mention Snorkl.tv</div>
+      <div>Save 35 Cents</div>
+      <div>On Your Next Purchase</div>
+      <div>Not valid between 9am and 9pm</div>
+    </div>
+    <div class="footer">
+      <a
+        href="https://courses.snorkl.tv/bundles/creative-coding-club"
+        target="_blank"
+      >
+        <img
+          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/32887/herman.svg"
+          alt=""
+          width="60"
+      /></a>
+    </div>
+    <script>
+      let animation = gsap.timeline({ repeat: 1 });
+      let stagger = 0.8;
+
+      function init() {
+        gsap.set('.demo', { autoAlpha: 1 });
+        gsap.set('.demo div', { transformOrigin: '50% 50% -50' });
+        animation
+          .from('.demo div', {
+            rotationX: -90,
+            // rotationY: 90,
+            opacity: 0,
+            stagger: stagger,
+          })
+          .to(
+            '.demo div',
+            {
+              rotationX: 90,
+              //   rotationY: 45,
+              opacity: 0,
+              stagger: stagger,
+            },
+            stagger
+          );
+      }
+
+      init();
+
+      GSDevTools.create({ animation: animation });
+    </script>
+  </body>
+</html>
