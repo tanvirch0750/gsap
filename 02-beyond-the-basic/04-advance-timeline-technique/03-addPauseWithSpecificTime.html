@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GSAP Utilities Real-Life Examples</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <style>
+      .box {
+        width: 50px;
+        height: 50px;
+      }
+
+      .red {
+        background: red;
+      }
+
+      .blue {
+        background: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>How to add a 1 second pause to a timeline</h1>
+    <div class="box red"></div>
+    <div class="box blue"></div>
+    <script>
+      //this lesson is part of GSAP 3 Beyond the Basics
+      // https://www.creativeCodingClub.com/courses/gsap3-beyond-the-basics
+
+      let tl = gsap
+        .timeline()
+        .to('.red', { duration: 2, x: 300 })
+        .addPause('>', gsap.delayedCall, [1, () => tl.play()])
+        .to('.blue', { duration: 2, x: 300 });
+
+      GSDevTools.create({ animation: tl });
+
+      // see the video with full explanation at:
+      // http://www.snorkl.tv/pause-a-greensock-timeline-for-a-specific-amount-of-time/
+    </script>
+  </body>
+</html>

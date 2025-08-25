@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GSAP Utilities Real-Life Examples</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <style>
+      body,
+      html {
+        width: 100%;
+        height: 100%;
+        font-family: kanit;
+      }
+
+      body {
+        display: flex;
+        justify-content: center;
+        background: #1d1d1d;
+        overflow: hidden;
+      }
+      .wrapper {
+        width: 75%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+      }
+
+      .boxes {
+        height: 50%;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        background: #2d2d2d;
+      }
+
+      .box {
+        width: 80px;
+        height: 80px;
+        font-size: 30px;
+        background: #6699fc;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 8px;
+      }
+
+      .dotNav {
+        display: flex;
+        justify-content: space-around;
+        height: 40px;
+        align-items: center;
+        background: black;
+      }
+
+      .dot {
+        width: 20px;
+        height: 20px;
+        border-radius: 100%;
+        background: #ff3bb9;
+        border: 3px white solid;
+        cursor: pointer;
+      }
+
+      .nav {
+        height: 80px;
+        display: flex;
+        background: black;
+        justify-content: center;
+        align-items: center;
+      }
+
+      button {
+        box-shadow: 0px 1px 0px 0px #fff6af;
+        background: linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
+        background-color: #ffec64;
+        border-radius: 6px;
+        border: 1px solid #ffaa22;
+        display: inline-block;
+        cursor: pointer;
+        color: #333333;
+        font-family: Arial;
+        font-size: 21px;
+        font-weight: bold;
+        padding: 12px 24px;
+        text-decoration: none;
+        text-shadow: 0px 1px 0px #ffee66;
+        margin: 10px;
+      }
+      button:hover {
+        background: linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
+        background-color: #ffab23;
+      }
+      button:active {
+        position: relative;
+        top: 1px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="boxes">
+        <div class="box b0">0</div>
+        <div class="box b1">1</div>
+        <div class="box b2">2</div>
+        <div class="box b3">3</div>
+      </div>
+      <div class="dotNav"></div>
+      <div class="nav">
+        <button id="prev_btn">prev</button>
+        <button id="next_btn">next</button>
+      </div>
+    </div>
+    <script>
+      let select = (selector) => {
+        return document.querySelector(selector);
+      };
+
+      let next_btn = select('#next_btn');
+      let prev_btn = select('#prev_btn');
+
+      let tl = gsap
+        .timeline({
+          paused: true,
+          defaults: { duration: 0.5, scale: 0 },
+        })
+
+        .add('b0')
+        .from('.b0', {})
+        .addPause()
+        .to('.b0', { opacity: 0 })
+
+        .add('b1')
+        .from('.b1', { rotation: -180 })
+        .addPause()
+        .to('.b1', { opacity: 0 })
+
+        .add('b2')
+        .from('.b2', { rotation: 180, y: -100 })
+        .addPause()
+        .to('.b2', { opacity: 0 })
+
+        .add('b3')
+        .from('.b3', { rotation: 180, y: 100 });
+
+      next_btn.addEventListener('click', () => tl.play());
+      prev_btn.addEventListener('click', () => tl.reverse());
+
+      //helper function provided by GreenSock
+      const getLabelsArray = (timeline) =>
+        Object.keys(timeline.labels)
+          .map((v) => ({ name: v, time: timeline.labels[v] }))
+          .sort((a, b) => a.time - b.time);
+
+      let labels = getLabelsArray(tl);
+
+      labels.forEach(function (item, index) {
+        console.log(item.name);
+        let dot = document.createElement('div');
+        dot.setAttribute('class', 'dot');
+        dot.setAttribute('data-label', item.name);
+        document.querySelector('.dotNav').appendChild(dot);
+        dot.addEventListener('click', function () {
+          console.log(this.getAttribute('data-label'));
+          tl.play(this.getAttribute('data-label'));
+        });
+      });
+    </script>
+  </body>
+</html>
